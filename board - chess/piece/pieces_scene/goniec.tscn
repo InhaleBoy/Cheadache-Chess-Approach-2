@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7b0xq85lohxj"]
+
+[ext_resource type="PackedScene" uid="uid://bamwsbhyot1py" path="res://board - chess/piece/pieces_scene/piece.tscn" id="1_eblyl"]
+[ext_resource type="Script" path="res://board - chess/piece/pieces_scripts/goniec.gd" id="2_yxfa2"]
+
+[node name="piece" groups=["Goniec"] instance=ExtResource("1_eblyl")]
+script = ExtResource("2_yxfa2")

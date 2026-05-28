@@ -1,0 +1,263 @@
+[gd_scene load_steps=4 format=3 uid="uid://6q5rugydloy"]
+
+[ext_resource type="Script" uid="uid://doihmpew4hw7u" path="res://0test/0test_net/NetTester.cs" id="1_1gn5p"]
+[ext_resource type="PackedScene" uid="uid://6g8rcjr46muf" path="res://0test/0test_net/lobby_button.tscn" id="2_ndwbc"]
+[ext_resource type="PackedScene" uid="uid://bq6jeu4qp85bp" path="res://0test/0test_net/password_enterer.tscn" id="3_ngkkx"]
+
+[node name="NET" type="Control" node_paths=PackedStringArray("OutputConnectionList", "OutputLobbyList", "InputLogin", "InputPassword", "InputLobbyName", "InputLobbyPassword", "OutputLobbyName", "OutputLobbyPassword", "OutputLobbyUuid", "OutputLobbyPlayerList", "OutputLobbyActive", "InputLobbyJoinName", "InputLobbyJoinUuid", "InputLobbyJoinPassword", "OutputLobbyListClient")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -7.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+script = ExtResource("1_1gn5p")
+OutputConnectionList = NodePath("Start Server/Connection List")
+OutputLobbyList = NodePath("Start Server/Lobby List")
+InputLogin = NodePath("Start Client/Login")
+InputPassword = NodePath("Start Client/Password")
+InputLobbyName = NodePath("Start Client/Lobby Creation/Lobby Name")
+InputLobbyPassword = NodePath("Start Client/Lobby Creation/Lobby Pass")
+OutputLobbyName = NodePath("Start Client/Lobby Info/Nazwa")
+OutputLobbyPassword = NodePath("Start Client/Lobby Info/Hasło")
+OutputLobbyUuid = NodePath("Start Client/Lobby Info/UUID")
+OutputLobbyPlayerList = NodePath("Start Client/Lobby Info/TextEdit")
+OutputLobbyActive = NodePath("Start Client/Lobby Info/CheckBox")
+InputLobbyJoinName = NodePath("Start Client/Lobby Join/Lobby Name")
+InputLobbyJoinUuid = NodePath("Start Client/Lobby Join/Lobby UUID")
+InputLobbyJoinPassword = NodePath("Start Client/Lobby Join/Lobby Pass")
+OutputLobbyListClient = NodePath("Start Client/Lobby List/HBoxContainer/LobbyListContainer")
+LobbyListClientButtonScene = ExtResource("2_ndwbc")
+PasswodEntererScene = ExtResource("3_ngkkx")
+
+[node name="Start Client" type="Button" parent="."]
+layout_mode = 0
+offset_left = 10.8
+offset_top = 13.4
+offset_right = 125.8
+offset_bottom = 54.4
+text = "START CLIENT"
+
+[node name="Ping Server" type="Button" parent="Start Client"]
+layout_mode = 0
+offset_left = 131.0
+offset_right = 197.0
+offset_bottom = 54.0
+text = "PING 
+SERVER"
+
+[node name="Login" type="LineEdit" parent="Start Client"]
+layout_mode = 0
+offset_top = 66.0
+offset_right = 197.0
+offset_bottom = 97.0
+placeholder_text = "Login"
+
+[node name="Password" type="LineEdit" parent="Start Client"]
+layout_mode = 0
+offset_top = 106.2
+offset_right = 197.0
+offset_bottom = 137.2
+placeholder_text = "Password"
+
+[node name="Lobby Creation" type="Label" parent="Start Client"]
+layout_mode = 0
+offset_top = 151.4
+offset_right = 135.0
+offset_bottom = 174.4
+text = "LOBBY CREATION"
+
+[node name="Create Lobby" type="Button" parent="Start Client/Lobby Creation"]
+layout_mode = 0
+offset_top = 111.8
+offset_right = 122.0
+offset_bottom = 142.8
+text = "CREATE LOBBY"
+
+[node name="Lobby Name" type="LineEdit" parent="Start Client/Lobby Creation"]
+layout_mode = 0
+offset_top = 31.2
+offset_right = 197.0
+offset_bottom = 62.2
+placeholder_text = "Name"
+
+[node name="Lobby Pass" type="LineEdit" parent="Start Client/Lobby Creation"]
+layout_mode = 0
+offset_top = 69.2
+offset_right = 197.0
+offset_bottom = 100.2
+placeholder_text = "Password"
+
+[node name="Lobby Info" type="Label" parent="Start Client"]
+layout_mode = 0
+offset_top = 482.2
+offset_right = 247.0
+offset_bottom = 506.2
+text = "CURRENT LOBBY INFORMATION"
+
+[node name="Nazwa" type="LineEdit" parent="Start Client/Lobby Info"]
+layout_mode = 0
+offset_top = 25.2
+offset_right = 247.0
+offset_bottom = 56.2
+placeholder_text = "NAZWA"
+editable = false
+
+[node name="Hasło" type="LineEdit" parent="Start Client/Lobby Info"]
+layout_mode = 0
+offset_top = 68.2
+offset_right = 247.0
+offset_bottom = 99.2
+placeholder_text = "HASLO"
+editable = false
+
+[node name="UUID" type="LineEdit" parent="Start Client/Lobby Info"]
+layout_mode = 0
+offset_top = 112.8
+offset_right = 247.0
+offset_bottom = 143.8
+placeholder_text = "UUID"
+editable = false
+
+[node name="TextEdit" type="TextEdit" parent="Start Client/Lobby Info"]
+layout_mode = 0
+offset_left = 287.8
+offset_right = 534.8
+offset_bottom = 175.0
+placeholder_text = "GRACZE"
+editable = false
+
+[node name="CheckBox" type="CheckBox" parent="Start Client/Lobby Info"]
+layout_mode = 0
+offset_left = 253.4
+offset_right = 277.4
+offset_bottom = 24.0
+toggle_mode = false
+
+[node name="Lobby Join" type="Label" parent="Start Client"]
+layout_mode = 0
+offset_top = 300.6
+offset_right = 135.0
+offset_bottom = 323.6
+text = "LOBBY JOIN"
+
+[node name="Join Lobby" type="Button" parent="Start Client/Lobby Join"]
+layout_mode = 0
+offset_top = 138.0
+offset_right = 122.0
+offset_bottom = 169.0
+text = "JOIN LOBBY"
+
+[node name="Lobby Name" type="LineEdit" parent="Start Client/Lobby Join"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 197.0
+offset_bottom = 54.0
+placeholder_text = "Name"
+
+[node name="Lobby UUID" type="LineEdit" parent="Start Client/Lobby Join"]
+layout_mode = 0
+offset_top = 61.4
+offset_right = 197.0
+offset_bottom = 92.4
+placeholder_text = "UUID"
+
+[node name="Lobby Pass" type="LineEdit" parent="Start Client/Lobby Join"]
+layout_mode = 0
+offset_top = 99.4
+offset_right = 197.0
+offset_bottom = 130.4
+placeholder_text = "Password"
+
+[node name="Lobby List" type="Label" parent="Start Client"]
+layout_mode = 0
+offset_left = 218.0
+offset_right = 373.0
+offset_bottom = 23.0
+text = "LOBBY LIST <3 <3 <3"
+
+[node name="Force Server Update" type="Button" parent="Start Client/Lobby List"]
+layout_mode = 0
+offset_left = 166.4
+offset_top = -13.4
+offset_right = 352.4
+offset_bottom = 17.6
+text = "FORCE SERVER UPDATE"
+
+[node name="HBoxContainer" type="ScrollContainer" parent="Start Client/Lobby List"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 300.0
+offset_bottom = 473.0
+
+[node name="LobbyListContainer" type="VBoxContainer" parent="Start Client/Lobby List/HBoxContainer"]
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 2
+
+[node name="Start Server" type="Button" parent="."]
+layout_mode = 0
+offset_left = 764.6
+offset_top = 375.4
+offset_right = 881.6
+offset_bottom = 413.4
+text = "START SERVER"
+
+[node name="Refresh" type="Button" parent="Start Server"]
+layout_mode = 0
+offset_top = 52.2
+offset_right = 121.0
+offset_bottom = 83.2
+text = "REFRESH LISTS"
+
+[node name="Connection List" type="TextEdit" parent="Start Server"]
+layout_mode = 0
+offset_top = 96.8
+offset_right = 113.0
+offset_bottom = 291.8
+placeholder_text = "Server Clients"
+editable = false
+
+[node name="LineEdit" type="Label" parent="Start Server/Connection List"]
+visible = false
+layout_mode = 0
+offset_top = 172.0
+offset_right = 181.0
+offset_bottom = 195.0
+text = "BRRRRR ... !!!"
+
+[node name="Lobby List" type="TextEdit" parent="Start Server"]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 96.8
+offset_right = 242.0
+offset_bottom = 291.8
+placeholder_text = "Server Lobbies"
+editable = false
+
+[node name="LineEdit" type="Label" parent="Start Server/Lobby List"]
+visible = false
+layout_mode = 0
+offset_top = 172.0
+offset_right = 181.0
+offset_bottom = 195.0
+text = "WROOOOM .... !!!!"
+
+[node name="Ping Clients" type="Button" parent="Start Server"]
+layout_mode = 0
+offset_left = 129.0
+offset_right = 201.0
+offset_bottom = 54.0
+text = "?PING
+CLIENTS"
+
+[connection signal="button_down" from="Start Client" to="." method="StartClient"]
+[connection signal="button_down" from="Start Client/Ping Server" to="." method="PingServer"]
+[connection signal="button_down" from="Start Client/Lobby Creation/Create Lobby" to="." method="Createlobby"]
+[connection signal="button_down" from="Start Client/Lobby Join/Join Lobby" to="." method="JoinLobby"]
+[connection signal="button_down" from="Start Client/Lobby List/Force Server Update" to="." method="ServerUpdate"]
+[connection signal="button_down" from="Start Server" to="." method="StartServer"]
+[connection signal="button_down" from="Start Server/Refresh" to="." method="ServerDiagnostics"]
+[connection signal="button_down" from="Start Server/Ping Clients" to="." method="_on_ping_clients_button_down"]

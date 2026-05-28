@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3t25a0rvws0f"]
+
+[ext_resource type="Script" uid="uid://51bnwtw1ikel" path="res://main_scene.gd" id="1_nqgoa"]
+[ext_resource type="Script" uid="uid://ceg0tuy4dp460" path="res://Debug Mode.gd" id="2_bhic3"]
+[ext_resource type="Script" uid="uid://dlcluceupwd7r" path="res://Boards.gd" id="3_30v85"]
+
+[node name="main scene" type="Node2D"]
+script = ExtResource("1_nqgoa")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="GameControll" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 112.0
+offset_bottom = 72.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameControll"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 5.321
+anchor_top = 4.556
+anchor_right = 5.321
+anchor_bottom = 4.556
+offset_left = -603.952
+offset_top = -340.032
+offset_right = 4526.05
+offset_bottom = 3097.97
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+
+[node name="Debug Mode" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_bhic3")
+
+[node name="Boards" type="Control" parent="CanvasLayer"]
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("3_30v85")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Boards"]
+layout_mode = 0
+offset_right = 5100.0
+offset_bottom = 3400.0
+alignment = 1
+
+[node name="EnemyBoards" type="HBoxContainer" parent="CanvasLayer/Boards/VBoxContainer"]
+custom_minimum_size = Vector2(0, 680)
+layout_mode = 2
+alignment = 1
+
+[node name="MainBoards" type="HBoxContainer" parent="CanvasLayer/Boards/VBoxContainer"]
+custom_minimum_size = Vector2(0, 2000)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="YourBoards" type="HBoxContainer" parent="CanvasLayer/Boards/VBoxContainer"]
+custom_minimum_size = Vector2(0, 680)
+layout_mode = 2
+alignment = 1

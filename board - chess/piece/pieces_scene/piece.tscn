@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bamwsbhyot1py"]
+
+[ext_resource type="Script" uid="uid://c851oox28yxxt" path="res://0test/0test_chess/Piece.cs" id="1_0oo0d"]
+[ext_resource type="Texture2D" uid="uid://bci1qq7wcauk5" path="res://board - chess/piece/textures/pawn_black.png" id="2_q5luv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0oo0d"]
+size = Vector2(180, 180)
+
+[node name="piece" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape") groups=["PIECE"]]
+input_pickable = true
+script = ExtResource("1_0oo0d")
+Sprite = NodePath("Sprite2D")
+CollisionShape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0oo0d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.252, 0.252)
+texture = ExtResource("2_q5luv")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

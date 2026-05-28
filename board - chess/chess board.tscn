@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://c88xcgora3apk"]
+
+[ext_resource type="Script" uid="uid://blflbl1cb46yc" path="res://board - chess/chessboard.gd" id="1_ru0pq"]
+[ext_resource type="Script" uid="uid://dm7ll3k2k1jnv" path="res://board - chess/Tiles&Pieces.gd" id="2_cwhcu"]
+
+[node name="chessboard" type="Control"]
+process_priority = -3
+process_physics_priority = -3
+custom_minimum_size = Vector2(1700, 1700)
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(0.2, 0.2)
+size_flags_vertical = 4
+mouse_filter = 1
+script = ExtResource("1_ru0pq")
+
+[node name="WinNode" type="Control" parent="."]
+visible = false
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+
+[node name="WinLabel" type="Label" parent="WinNode"]
+layout_mode = 0
+offset_left = 34.549
+offset_top = 99.0
+offset_right = 1056.55
+offset_bottom = 236.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "black wins !!!"
+
+[node name="Window" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Border" type="ColorRect" parent="Window"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 5.321
+anchor_top = 4.556
+anchor_right = 5.321
+anchor_bottom = 4.556
+offset_right = 1700.0
+offset_bottom = 1700.0
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+color = Color(0.490196, 1, 1, 1)
+
+[node name="Tiles&Pieces" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("2_cwhcu")

@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2dvf5dhmx67t"]
+
+[ext_resource type="Script" uid="uid://ccnjhixdxuse4" path="res://0test/0test_chess/Tile.cs" id="1_nwbmp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivdmk"]
+
+[node name="Tile" type="Area2D" node_paths=PackedStringArray("LightupRect", "TileColor", "DebugLabel") groups=["TILE"]]
+script = ExtResource("1_nwbmp")
+Size = Vector2(200, 200)
+LightupRect = NodePath("ColorRect")
+TileColor = NodePath("Tile Color")
+DebugLabel = NodePath("Label")
+
+[node name="center" type="Node2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_ivdmk")
+
+[node name="Tile Color" type="ColorRect" parent="."]
+light_mask = 513
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -92.0
+offset_top = -92.0
+offset_right = 93.0
+offset_bottom = 93.0
+mouse_filter = 2
+color = Color(0, 0.505882, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -89.0
+offset_top = -67.0
+offset_right = 76.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 49
+text = "[A,A,A]"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

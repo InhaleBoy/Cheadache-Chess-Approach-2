@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://13802xwvuby4"]
+
+[ext_resource type="Script" uid="uid://bs74wy1353jr7" path="res://0test/0test_chess/Board.cs" id="1_y788e"]
+[ext_resource type="PackedScene" uid="uid://d2dvf5dhmx67t" path="res://0test/0test_chess/Tile.tscn" id="2_q4pqb"]
+
+[node name="Board" type="Control" node_paths=PackedStringArray("TilesAndPieces")]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_y788e")
+_tile = ExtResource("2_q4pqb")
+TilesAndPieces = NodePath("Tiles&Pieces")
+
+[node name="WinNode" type="Control" parent="."]
+visible = false
+top_level = true
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="WinLabel" type="Label" parent="WinNode"]
+layout_mode = 0
+offset_left = 34.549
+offset_top = 99.0
+offset_right = 1056.55
+offset_bottom = 236.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "black wins !!!"
+
+[node name="Tiles&Pieces" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 50.0
+offset_bottom = 50.0
+mouse_filter = 2

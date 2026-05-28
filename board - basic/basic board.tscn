@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfq20s4bb8xt0"]
+
+[ext_resource type="Script" path="res://board - basic/basicboard.gd" id="1_8hm13"]
+
+[node name="Board" type="Control"]
+custom_minimum_size = Vector2(650, 650)
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 4
+script = ExtResource("1_8hm13")
+
+[node name="Window" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Border" type="ColorRect" parent="Window"]
+layout_mode = 0
+offset_right = 650.0
+offset_bottom = 650.0
+color = Color(0.87451, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Window"]
+
+[node name="Content" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

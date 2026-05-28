@@ -1,0 +1,8 @@
+[gd_resource type="CurveXYZTexture" load_steps=2 format=3 uid="uid://dewgyy3u05nfu"]
+
+[sub_resource type="Curve" id="Curve_t2co7"]
+_data = [Vector2(0.527473, 0.89011), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[resource]
+curve_x = SubResource("Curve_t2co7")

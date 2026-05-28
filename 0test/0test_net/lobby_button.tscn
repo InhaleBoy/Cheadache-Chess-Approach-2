@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://6g8rcjr46muf"]
+
+[ext_resource type="Script" uid="uid://235htaye7lyt" path="res://0test/0test_net/LobbyButton.cs" id="1_xmabv"]
+
+[node name="Label" type="Label" node_paths=PackedStringArray("ButtonObj")]
+custom_minimum_size = Vector2(300, 40)
+offset_right = 300.0
+offset_bottom = 40.0
+text = "PISU PISU PISU PIS PISU PISU PISU PIS PISU PISU PISU PIS PISU PISU PISU"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("1_xmabv")
+ButtonObj = NodePath("Lobby Button")
+
+[node name="Lobby Button" type="Button" parent="."]
+z_index = -1
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
