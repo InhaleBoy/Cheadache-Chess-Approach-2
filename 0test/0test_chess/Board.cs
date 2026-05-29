@@ -1,12 +1,9 @@
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Godot;
 using static CHESS2._0test.Information;
 
 namespace CHESS2._0test._0test_chess;
-
-public interface IBoard {
-    void BoardSetup(int boardIdx);
-}
 
 public partial class Board : Control, IBoard
 {
@@ -18,7 +15,7 @@ public partial class Board : Control, IBoard
         BoardIdx = boardIdx;
         CreateTiles(8, 8);
     }
-
+    
     public void CreateTiles(int horizontal, int vertical) {
         bool wob = true;
         Vector3I index = new Vector3I(0,0,BoardIdx);
@@ -31,9 +28,13 @@ public partial class Board : Control, IBoard
         }
 
         Tile tempTile = _tile.Instantiate<Tile>();
-        Vector2 size = tempTile.GetSize();
+        Vector2 size = tempTile.Size;
         tempTile.QueueFree();
         CustomMinimumSize = new Vector2(size.X * (horizontal + 1), size.Y * vertical);
+    }
+    
+    public void CreatePieces() {
+        
     }
 
     public void AddTile(Vector3I index, bool wob) {
@@ -44,13 +45,18 @@ public partial class Board : Control, IBoard
     }
 
     public void AddPiece(Pieces type, Vector3I idx) {
-        // There should be only Tile there lol
-        Tile tile = (Tile)GetTree().GetNodesInGroup("TILE").Where(x => ((Tile)x).Idx == idx).First();
+        Tile tile = (Tile)GetTree().GetNodesInGroup("TILE").First(x => ((Tile)x).Idx == idx);
         PieceAbstract piAbstract = PiecePathDictionary[type];
         Piece piece = GD.Load<PackedScene>(piAbstract.Scene).Instantiate<Piece>();
-        piece.LoadValues(tile,true,type,piAbstract);
         TilesAndPieces.AddChild(piece);
+        piece.LoadValues(tile, true, type, piAbstract);
         tile.CurrentPiece = piece;
+    }
+    
+    public override void _Input(InputEvent @event) {
+        if (Input.IsKeyPressed(Key.N)) {
+            AddPiece(Pieces.Piece, new Vector3I(0, 0, BoardIdx));
+        }
     }
 
     

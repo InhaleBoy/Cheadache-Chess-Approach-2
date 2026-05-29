@@ -1,13 +1,8 @@
 using System;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using Godot;
 using CHESS2._0test._0test_chess;
 using static CHESS2._0test.Information;
-using CHESS2._0test._0test_net;
+// using CHESS2._0test._0test_net;
 
 namespace CHESS2._0test;
 
@@ -19,30 +14,15 @@ public partial class Tttt : Node2D
     [Export] public Control BoardHolder { get; set; }
     [Export] public layout LayoutHolder { get; set; }
 
-    public Server RandomAssServer;
-    public Client[] RandomAssClient = new Client[10 ];
-
     public override void _Ready() {
         Boards[] boards = [0,0,0,0];
         AddBoars(boards);
     }
 
-    public override void _Input(InputEvent @event) {
-        if (Input.IsKeyPressed(Key.M)) {
-            AddPiece(Pieces.Piece, new Vector3I(0, 0, 2));
-        }
+    public override void _Input(InputEvent @event) { // DEBUG INPUT
         if (Input.IsKeyPressed(Key.Slash)) {
             LayoutHolder.RefreshLayout();
         }
-
-        if (Input.IsKeyPressed(Key.H)) {
-            RandomAssServer = new Server(9999);
-        }
-        if (Input.IsKeyPressed(Key.J)) {
-            Client client = new Client("127.0.0.1",9999);
-            RandomAssClient.Append(client);
-        }
-        
     }
 
     public void AddBoars(params Boards[] boards ) {
@@ -62,14 +42,5 @@ public partial class Tttt : Node2D
             temp.AddChild(board);
         }
         LayoutHolder.RefreshLayout();
-    }
-
-    public void AddPiece(Pieces type, Vector3I idx) {
-        Tile tile = (Tile)GetTree().GetNodesInGroup("TILE").Where(x => ((Tile)x).Idx == idx).First();
-        PieceAbstract piAbstract = PiecePathDictionary[type];
-        Piece piece = GD.Load<PackedScene>(piAbstract.Scene).Instantiate<Piece>();   
-        PieceHolder.AddChild(piece);
-        piece.LoadValues(tile, true, type, piAbstract);
-        tile.CurrentPiece = piece;
     }
 }

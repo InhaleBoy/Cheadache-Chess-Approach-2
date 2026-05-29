@@ -17,14 +17,10 @@ public partial class Tile : Area2D
         OnTop
     }
 
-    public static Color AbleToMoveLightupColor = new Color(0, 255, 0);
-    public static Color OnTopLightupColor = new Color(0, 0, 255);
+    public static Color AbleToMoveLightupColor = new(0, 255, 0);
+    public static Color OnTopLightupColor = new(0, 0, 255);
 
-    [Export] private Vector2 Size { get; set; }
-    public Vector2 GetSize() {
-        return Size;
-    }
-
+    [Export] public Vector2 Size { get; set; }
     [Export] private ColorRect LightupRect { get; set; }
     [Export] private ColorRect TileColor { get; set; }
     [Export] private Label DebugLabel { get; set; }

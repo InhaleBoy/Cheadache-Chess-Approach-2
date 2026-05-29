@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 namespace CHESS2._0test;
 
+public interface IBoard {
+    void BoardSetup(int boardIdx);
+}
+
 public static class Information {
     
     public enum Boards {
@@ -19,31 +23,16 @@ public static class Information {
         [Boards.DiceRoll] = ""
     };
 
-    public static Dictionary<Pieces, PieceAbstract> PiecePathDictionary = new Dictionary<Pieces, PieceAbstract>
-    {
-        [Pieces.Piece] = new PieceAbstract
-        {
+    public static Dictionary<Pieces, PieceAbstract> PiecePathDictionary = new() {
+        [Pieces.Piece] = new() {
             Scene = "res://0test/0test_chess/Piece.tscn",
             Texture = "res://board - chess/piece/textures/goniec_black.png"
         },
-        [Pieces.Pawn] = new PieceAbstract
-        {
+        [Pieces.Pawn] = new() {
             Scene = "",
             Texture = ""
         }
     };
-
-    public enum Message {
-        Id,
-        Join,
-        UserConnected,
-        UserDisconnected,
-        Lobby,
-        Candidate,
-        Offer,
-        Answer,
-        CheckIn
-    }
 }
 
 public class PieceAbstract {

@@ -7,7 +7,7 @@
 [node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "PieceHolder", "BoardHolder", "LayoutHolder")]
 script = ExtResource("1_4wuof")
 Camera = NodePath("Camera2D")
-PieceHolder = NodePath("Pieces")
+PieceHolder = NodePath("")
 BoardHolder = NodePath("LayoutHolder/BoardHolder")
 LayoutHolder = NodePath("LayoutHolder")
 
@@ -45,5 +45,3 @@ texture_filter = 3
 texture_repeat = 2
 position = Vector2(2074, 1700)
 zoom = Vector2(0.7, 0.7)
-
-[node name="Pieces" type="Node" parent="."]
