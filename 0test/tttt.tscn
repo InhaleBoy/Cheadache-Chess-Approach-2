@@ -4,10 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://ofwbbsysduqm" path="res://0test/wood.jpg" id="2_8dbfk"]
 [ext_resource type="Script" uid="uid://bsay0lygh4q0t" path="res://0test/layout.cs" id="2_vjgj0"]
 
-[node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "PieceHolder", "BoardHolder", "LayoutHolder")]
+[node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "BoardHolder", "LayoutHolder")]
 script = ExtResource("1_4wuof")
 Camera = NodePath("Camera2D")
-PieceHolder = NodePath("")
 BoardHolder = NodePath("LayoutHolder/BoardHolder")
 LayoutHolder = NodePath("LayoutHolder")
 

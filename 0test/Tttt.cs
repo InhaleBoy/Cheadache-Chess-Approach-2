@@ -10,7 +10,7 @@ public partial class Tttt : Node2D
 {
     [ExportCategory(" MAGIC ")]
     [Export] public Camera2D Camera { get; set; }
-    [Export] public Node PieceHolder { get; set; }
+    // [Export] public Node PieceHolder { get; set; }
     [Export] public Control BoardHolder { get; set; }
     [Export] public layout LayoutHolder { get; set; }
 
@@ -38,8 +38,8 @@ public partial class Tttt : Node2D
             }
 
             Board board = GD.Load<PackedScene>(BoardDictionary[boards[i]]).Instantiate<Board>();
-            board.BoardSetup(i);
             temp.AddChild(board);
+            board.BoardSetup(i);
         }
         LayoutHolder.RefreshLayout();
     }

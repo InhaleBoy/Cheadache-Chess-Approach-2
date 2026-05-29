@@ -33,7 +33,8 @@ public partial class Piece : CharacterBody2D {
         Type = type;
         InGameColor = ingamecolor;
         
-        Sprite.Texture = GD.Load<Texture2D>(piAbstract.Texture);
+        Sprite.Texture = GD.Load<Texture2D>(
+            ingamecolor ? piAbstract.Texture_W : piAbstract.Texture_B);
 
         CurrentTile = tile;
         
