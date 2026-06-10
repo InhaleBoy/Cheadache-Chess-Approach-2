@@ -7,13 +7,13 @@ public partial class layout : Control
 {
     [ExportCategory("SUB ELEMENTS")]
     [Export] public TextureRect BackgroundTexture { get; set; }
-    [Export] public Control PlayerCenterContainer { get; set; }
-    [Export] public int MagicNumberBorder { get; set; }
+    [Export] public Control BoardHolder { get; set; }
+    [Export] public float MagicNumberBorder { get; set; }
+    
 
     public void RefreshLayout() {
-        GD.Print(PlayerCenterContainer.Size);
-        BackgroundTexture.Size = PlayerCenterContainer.Size + new Vector2(0,MagicNumberBorder);
-        BackgroundTexture.Position = new Vector2(-MagicNumberBorder / 2, -MagicNumberBorder / 2);
+        BackgroundTexture.Size = BoardHolder.Size + new Vector2(0,MagicNumberBorder);
+        BoardHolder.Position = new Vector2(MagicNumberBorder / 2, MagicNumberBorder / 2);
     }
 
     public override void _Input(InputEvent @event) {

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CHESS 2"
-run/main_scene="res://net/net.tscn"
+run/main_scene="uid://bshoe4hyx4mhu"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 boot_splash/fullsize=false
 
@@ -36,6 +36,7 @@ project/assembly_name="CHESS 2"
 
 TILE=""
 PIECE=""
+BOARD=""
 
 [rendering]
 

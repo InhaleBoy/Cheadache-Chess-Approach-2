@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk7ahkdipx2x0"]
+
+[ext_resource type="Script" uid="uid://budgkkgdqkfe4" path="res://0test/0test_Start/TesterMainMenu.cs" id="1_12o1u"]
+[ext_resource type="PackedScene" uid="uid://bgb7p8gmj2aw" path="res://0test/tttt.tscn" id="2_cvyb1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cvyb1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qkwdh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_12o1u"]
+
+[node name="TesterMainMenu" type="Control" node_paths=PackedStringArray("ColorLabel", "PickWhiteButton", "PickBlackButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_12o1u")
+GameScene = ExtResource("2_cvyb1")
+ColorLabel = NodePath("Yo Color")
+PickWhiteButton = NodePath("Yo Color/WHITE")
+PickBlackButton = NodePath("Yo Color/BLACK")
+
+[node name="THE TITLE OF DOOM" type="Label" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 81.0
+offset_right = 829.0
+offset_bottom = 218.0
+theme_override_font_sizes/font_size = 150
+text = "Da Menu"
+
+[node name="Yo Color" type="Label" parent="."]
+layout_mode = 0
+offset_left = 215.0
+offset_top = 355.0
+offset_right = 618.0
+offset_bottom = 492.0
+theme_override_font_sizes/font_size = 100
+text = "Yo Color : "
+
+[node name="WHITE" type="Button" parent="Yo Color"]
+layout_mode = 0
+offset_top = 145.0
+offset_right = 373.0
+offset_bottom = 290.0
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvyb1")
+text = "WHITE"
+
+[node name="BLACK" type="Button" parent="Yo Color"]
+layout_mode = 0
+offset_left = 403.0
+offset_top = 145.0
+offset_right = 770.0
+offset_bottom = 290.0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qkwdh")
+text = "BLACK"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 3046.0
+offset_top = 2683.0
+offset_right = 4981.0
+offset_bottom = 2820.0
+theme_override_font_sizes/font_size = 100
+text = "LET THE DEATH OF THE UNIVERSE BEGIN"
+
+[node name="START GAME" type="Button" parent="Label"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 137.0
+offset_right = 1862.0
+offset_bottom = 554.0
+theme_override_font_sizes/font_size = 300
+theme_override_styles/focus = SubResource("StyleBoxEmpty_12o1u")
+text = "START IT !!!"
+
+[connection signal="button_down" from="Yo Color/WHITE" to="." method="ChangeColorWhite"]
+[connection signal="button_down" from="Yo Color/BLACK" to="." method="ChangeColorBlack"]
+[connection signal="button_down" from="Label/START GAME" to="." method="StartGame"]

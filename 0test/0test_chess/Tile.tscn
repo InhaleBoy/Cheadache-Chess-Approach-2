@@ -4,11 +4,11 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivdmk"]
 
-[node name="Tile" type="Area2D" node_paths=PackedStringArray("LightupRect", "TileColor", "DebugLabel") groups=["TILE"]]
+[node name="Tile" type="Area2D" node_paths=PackedStringArray("LightupRect", "TileColorRect", "DebugLabel") groups=["TILE"]]
 script = ExtResource("1_nwbmp")
 Size = Vector2(200, 200)
 LightupRect = NodePath("ColorRect")
-TileColor = NodePath("Tile Color")
+TileColorRect = NodePath("Tile Color")
 DebugLabel = NodePath("Label")
 
 [node name="center" type="Node2D" parent="."]
@@ -26,13 +26,12 @@ offset_bottom = 100.0
 mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 offset_left = -92.0
 offset_top = -92.0
 offset_right = 93.0
 offset_bottom = 93.0
 mouse_filter = 2
-color = Color(0, 0.505882, 0, 1)
+color = Color(0.645075, 0.000894366, 0.744854, 1)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -89.0

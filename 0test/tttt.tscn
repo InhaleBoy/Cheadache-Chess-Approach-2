@@ -1,46 +1,73 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgb7p8gmj2aw"]
+[gd_scene load_steps=7 format=3 uid="uid://bgb7p8gmj2aw"]
 
 [ext_resource type="Script" uid="uid://duv8k60t1r2dj" path="res://0test/Tttt.cs" id="1_4wuof"]
 [ext_resource type="Texture2D" uid="uid://ofwbbsysduqm" path="res://0test/wood.jpg" id="2_8dbfk"]
 [ext_resource type="Script" uid="uid://bsay0lygh4q0t" path="res://0test/layout.cs" id="2_vjgj0"]
+[ext_resource type="Script" uid="uid://c4quf33l3tl1c" path="res://0test/ThePlayerCamera.cs" id="4_4iqb3"]
+[ext_resource type="Texture2D" uid="uid://ddd3exnpqcy48" path="res://0test/red-button-isolate-backbround-3d-render-png.webp" id="4_84nfv"]
 
-[node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "BoardHolder", "LayoutHolder")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4iqb3"]
+
+[node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "BoardHolder", "LayoutHolder", "InformationLabel")]
 script = ExtResource("1_4wuof")
-Camera = NodePath("Camera2D")
+Camera = NodePath("The Player Camera")
 BoardHolder = NodePath("LayoutHolder/BoardHolder")
 LayoutHolder = NodePath("LayoutHolder")
+InformationLabel = NodePath("INFORMATION")
 
-[node name="LayoutHolder" type="Control" parent="." node_paths=PackedStringArray("BackgroundTexture", "PlayerCenterContainer")]
-custom_minimum_size = Vector2(4000, 3000)
+[node name="LayoutHolder" type="Control" parent="." node_paths=PackedStringArray("BackgroundTexture", "BoardHolder")]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 4000.0
-offset_bottom = 3000.0
 mouse_filter = 2
 script = ExtResource("2_vjgj0")
-BackgroundTexture = NodePath("TextureRect")
-PlayerCenterContainer = NodePath("BoardHolder")
-MagicNumberBorder = 200
+BackgroundTexture = NodePath("TABLE SPRITE")
+BoardHolder = NodePath("BoardHolder")
+MagicNumberBorder = 200.0
 
-[node name="TextureRect" type="TextureRect" parent="LayoutHolder"]
+[node name="TABLE SPRITE" type="TextureRect" parent="LayoutHolder"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1899.0
-offset_bottom = -1000.0
+offset_right = 2621.0
+offset_bottom = 1665.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_8dbfk")
+stretch_mode = 1
 
 [node name="BoardHolder" type="VBoxContainer" parent="LayoutHolder"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="The Player Camera" type="Camera2D" parent="."]
 texture_filter = 3
 texture_repeat = 2
-position = Vector2(2074, 1700)
-zoom = Vector2(0.7, 0.7)
+position = Vector2(1161, 1096)
+script = ExtResource("4_4iqb3")
+Speed = 1000.0
+
+[node name="BIG RED BUTTON" type="Button" parent="."]
+offset_left = -1100.0
+offset_top = 388.0
+offset_right = -117.0
+offset_bottom = 1096.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 110
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4iqb3")
+icon = ExtResource("4_84nfv")
+
+[node name="INFORMATION" type="Label" parent="."]
+offset_left = -1100.0
+offset_top = 40.0
+offset_right = -174.0
+offset_bottom = 317.0
+theme_override_font_sizes/font_size = 100
+text = "AAAAAAAAAAAAAA
+AAAAAAAAAAAAAA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_down" from="BIG RED BUTTON" to="." method="EndTurn"]

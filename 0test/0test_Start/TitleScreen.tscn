@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bshoe4hyx4mhu"]
+
+[ext_resource type="Script" uid="uid://32ivr7a74vs4" path="res://0test/0test_Start/TitleScreen.cs" id="1_rcxem"]
+[ext_resource type="Texture2D" uid="uid://de1f2a32vmw18" path="res://0test/0test_Start/embarrassed.webp" id="2_ueub8"]
+[ext_resource type="PackedScene" uid="uid://dk7ahkdipx2x0" path="res://0test/0test_Start/TesterMainMenu.tscn" id="2_wr2bp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rcxem"]
+font_size = 500
+font_color = Color(0.176471, 1, 1, 1)
+outline_size = 70
+outline_color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wr2bp"]
+font_size = 200
+
+[sub_resource type="LabelSettings" id="LabelSettings_ajpj2"]
+font_size = 100
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rcxem")
+GemeMenuScene = ExtResource("2_wr2bp")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1481.0
+offset_top = 2693.0
+offset_right = 3450.0
+offset_bottom = 3110.0
+theme_override_font_sizes/font_size = 300
+text = "START GAME"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 5100.0
+offset_bottom = 993.0
+text = "CHEADACHE CHESS"
+label_settings = SubResource("LabelSettings_rcxem")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Label"]
+layout_mode = 0
+offset_top = 612.0
+offset_right = 5100.0
+offset_bottom = 1126.0
+text = "I NEED TO MAKE A BETTER LOGO"
+label_settings = SubResource("LabelSettings_wr2bp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Label"]
+layout_mode = 0
+offset_top = 1234.0
+offset_right = 5100.0
+offset_bottom = 1846.0
+text = "AM BAD AT THE ART STUFF"
+label_settings = SubResource("LabelSettings_ajpj2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Embarrassed" type="Sprite2D" parent="Label/Label2"]
+position = Vector2(2532, 692)
+scale = Vector2(3.57538, 3.57538)
+texture = ExtResource("2_ueub8")
+
+[connection signal="button_down" from="Button" to="." method="StartGame"]

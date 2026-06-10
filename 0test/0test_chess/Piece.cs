@@ -9,17 +9,22 @@ public partial class Piece : CharacterBody2D {
     [Export] private Sprite2D Sprite { get; set; }
     [Export] private CollisionShape2D CollisionShape { get; set; }
 
+    // -- Conditions
     private bool _mouseontop;
     private bool _follow;
-    private bool _poscorrection;
+    // private bool _poscorrection;
 
+    // -- Indexing ?? Placement
+    public ulong BoardInstanceId;
     public Vector3I Idx;
-    public bool InGameColor;
     public Pieces Type;
-
+    public bool InGameColor;
+    
+    // -- Move Validation and UI
     public Tile CurrentTile;
     public Tile FloatingTile;
 
+    
     public static Shape2D ClickShape2D = new RectangleShape2D {
         Size = new Vector2(180,180)
     };
@@ -28,19 +33,18 @@ public partial class Piece : CharacterBody2D {
         Radius = 10
     };
     
-    public void LoadValues(Tile tile, bool ingamecolor,Pieces type,PieceAbstract piAbstract) {
+    
+    public void Init(ulong boardInstanceId, Tile tile, bool ingamecolor,Pieces type,PieceAbstract piAbstract) {
         Idx = tile.Idx;
         Type = type;
         InGameColor = ingamecolor;
+        CurrentTile = tile;
+        BoardInstanceId = boardInstanceId;
         
         Sprite.Texture = GD.Load<Texture2D>(
             ingamecolor ? piAbstract.Texture_W : piAbstract.Texture_B);
 
-        CurrentTile = tile;
-        
-        // Yes, this additional simulated click is working as a position correction mechanizm.
-        // Please do not ask.
-        _poscorrection = true;
+        CallDeferred(Node2D.MethodName.SetGlobalPosition,tile.GlobalPosition);
     }
     
     
@@ -48,12 +52,6 @@ public partial class Piece : CharacterBody2D {
     // ------------------------ Overrides
     
     public override void _PhysicsProcess(double delta) {
-        if (_poscorrection) {
-            Velocity = Vector2.Down * 10;
-            MoveAndSlide();
-            GlobalPosition = CurrentTile.GlobalPosition;
-            _poscorrection = false;
-        }
         if (_follow) {
             Vector2 campos = GetViewport().GetCamera2D().GetGlobalMousePosition();
             Velocity = new Vector2(campos.X-GlobalPosition.X, campos.Y - GlobalPosition.Y) * 10;
@@ -65,29 +63,44 @@ public partial class Piece : CharacterBody2D {
         if (@event is InputEventMouseButton && _mouseontop && @event.IsPressed()) {
             CollisionShape.Shape = DragShape2D;
             _follow = true;
-            ColorTiles(Tile.ColoringType.AbleToMove);
-            CurrentTile.Lightup(Tile.ColoringType.OnTop, true);
+            // ColorTiles(AbleToMoveTileLightupColor);
+            CurrentTile.SetLightup(PieceOnTopTileLightupColor);
         }
-        else if(@event is InputEventMouseButton && @event.IsReleased()) {   
+        // member u changed and added here the else - if somehting breaks this is it <3
+        if(@event is InputEventMouseButton && @event.IsReleased()) {   
             if(FloatingTile is not null && FloatingTile.CurrentPiece is null
-                                        && MoveValidation.ValidationForPiece(InGameColor,ref Type, ref CurrentTile, ref FloatingTile) ) {
-                CurrentTile.CurrentPiece = null;
-                FloatingTile.CurrentPiece = this;
-                CurrentTile = FloatingTile;
+                && MoveValidation.ValidationForPiece(InGameColor, Type, CurrentTile.Idx, FloatingTile.Idx) ) {
+                
+                // Test Move Print
+                Board board = (Board)InstanceFromId(BoardInstanceId);
+                if (board is null){
+                    GD.Print("DUCK!");
+                    return;
+                }
+                
+                bool canMove = board.SetMove(GetInstanceId(), CurrentTile, FloatingTile);
+                if (canMove) {
+                    CurrentTile.CurrentPiece = null;
+                    FloatingTile.CurrentPiece = this;
+                    CurrentTile = FloatingTile;
+                } 
+                
             }
-            ColorTiles(Tile.ColoringType.Nothing);
+            ColorTiles(Colors.Transparent);
             FloatingTile = null;
             _follow = false;
+            _mouseontop = false;
             GlobalPosition = CurrentTile.GlobalPosition;
             CollisionShape.Shape = ClickShape2D;
         }
-        if (@event is InputEventMouseMotion && _follow) {
-            ColorTiles(Tile.ColoringType.AbleToMove);
-            try{
-                FloatingTile.Lightup(Tile.ColoringType.OnTop, true);
-            }
-            catch (Exception e) {
-                // ignored
+        else if (@event is InputEventMouseMotion && _follow) {
+            ColorTiles(AbleToMoveTileLightupColor);
+
+            try {
+                // THIS BRAKES COZ OF PIECES MOVIN ON THEIR OWN AAAAAAAAA !!!
+                FloatingTile.SetLightup(PieceOnTopTileLightupColor);
+            } catch (Exception e) {
+                Console.WriteLine("This Method is still CRYING OMFG ?!?! --- ", e);
             }
         }
     }
@@ -96,13 +109,17 @@ public partial class Piece : CharacterBody2D {
     
     // ------------------------------- Methods
 
-    private void ColorTiles(Tile.ColoringType coloringType){ // replace with call group
+    private void ColorTiles(Color color){ // replace with call group
         var tiles = GetTree().GetNodesInGroup("TILE");
-        foreach (var t in tiles) {
-            Tile tile = (Tile)t;
-            tile.Lightup(coloringType, MoveValidation.ValidationForPiece(InGameColor,ref Type, ref CurrentTile, ref tile));
+        foreach (var apparentTile in tiles) {
+            Tile gotoTile = (Tile)apparentTile;
+            gotoTile.SetLightup(Colors.Transparent);
+            if (!MoveValidation.ValidationForPiece(InGameColor, Type, CurrentTile.Idx, gotoTile.Idx)) continue;
+            gotoTile.SetLightup(color);
         }
     }
+
+    
 
     public void _on_mouse_entered() {
         _mouseontop = true;
@@ -119,17 +136,21 @@ public partial class Piece : CharacterBody2D {
 // ------------------------------ RULESET 
 public static class MoveValidation {
     
-    public static bool ValidationForPiece(bool ingamecolor, ref Pieces type, ref Tile startTile, ref Tile endTile) {
+    public static bool ValidationForPiece(bool ingamecolor, Pieces type, Vector3I startTileIdx, Vector3I endTileIdx) {
         switch (type) {
             case Pieces.Piece: return true;//PawnPieceMoveValidation(ingamecolor, ref startTile, ref endTile);
+            case Pieces.Pawn: return PawnPieceMoveValidation(ingamecolor, startTileIdx, endTileIdx);
             default: return false;
         }
     }
 
-    private static bool PawnPieceMoveValidation(bool ingamecolor, ref Tile startTile, ref Tile endTile) {
-        int distance = endTile.Idx.Y - startTile.Idx.Y;
-        return endTile.Idx.X == startTile.Idx.X && endTile.Idx.Z == startTile.Idx.Z && distance is > 0 and <= 2;
+    private static bool PawnPieceMoveValidation(bool ingamecolor, Vector3I startTileIdx, Vector3I endTileIdx) {
+        int distance = endTileIdx.Y - startTileIdx.Y;
+        bool yidx = (ingamecolor ? -distance : distance) is > 0 and <= 2;
         
+        bool xidx = endTileIdx.X == startTileIdx.X;
+        bool zidx = endTileIdx.Z == startTileIdx.Z;
+        return xidx && zidx && yidx;
     } 
 }
 

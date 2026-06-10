@@ -1,15 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://13802xwvuby4"]
+[gd_scene load_steps=5 format=3 uid="uid://13802xwvuby4"]
 
 [ext_resource type="Script" uid="uid://bs74wy1353jr7" path="res://0test/0test_chess/Board.cs" id="1_y788e"]
 [ext_resource type="PackedScene" uid="uid://d2dvf5dhmx67t" path="res://0test/0test_chess/Tile.tscn" id="2_q4pqb"]
+[ext_resource type="Texture2D" uid="uid://de344bb4xejl8" path="res://0test/0test_chess/istockphoto-2037395446-612x612.jpg" id="3_sh1jj"]
 
-[node name="Board" type="Control" node_paths=PackedStringArray("TilesAndPieces")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sh1jj"]
+
+[node name="Board" type="Control" node_paths=PackedStringArray("TilesAndPieces", "PointingArrow", "ResetMoveButton") groups=["BOARD"]]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_y788e")
-_tile = ExtResource("2_q4pqb")
+TileScene = ExtResource("2_q4pqb")
 TilesAndPieces = NodePath("Tiles&Pieces")
+PointingArrow = NodePath("Arrow Of Whelth")
+ResetMoveButton = NodePath("Button")
 
 [node name="WinNode" type="Control" parent="."]
 visible = false
@@ -36,3 +41,28 @@ offset_top = 50.0
 offset_right = 50.0
 offset_bottom = 50.0
 mouse_filter = 2
+
+[node name="Arrow Of Whelth" type="Line2D" parent="."]
+position = Vector2(50, 50)
+points = PackedVector2Array(725, 459, 380, 172, 254, 415, 446, 546, 229, 870, 648, 930, 719, 673, 1270, 718, 1265, 354, 931, 385, 992, 117, 689, 26, 729, 460)
+width = 160.0
+default_color = Color(1, 0.529412, 1, 1)
+texture = ExtResource("3_sh1jj")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_top = -111.0
+offset_right = 321.0
+offset_bottom = -11.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 33
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sh1jj")
+text = "RETURN MY
+STUPID MOVE
+"
+
+[connection signal="button_down" from="Button" to="." method="ResetMove"]
