@@ -1,19 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://bgb7p8gmj2aw"]
 
 [ext_resource type="Script" uid="uid://duv8k60t1r2dj" path="res://0test/Tttt.cs" id="1_4wuof"]
-[ext_resource type="Texture2D" uid="uid://ofwbbsysduqm" path="res://0test/wood.jpg" id="2_8dbfk"]
+[ext_resource type="Texture2D" uid="uid://ofwbbsysduqm" path="res://0test/placeholder textures/wood.jpg" id="2_8dbfk"]
 [ext_resource type="Script" uid="uid://bsay0lygh4q0t" path="res://0test/layout.cs" id="2_vjgj0"]
 [ext_resource type="Script" uid="uid://c4quf33l3tl1c" path="res://0test/ThePlayerCamera.cs" id="4_4iqb3"]
-[ext_resource type="Texture2D" uid="uid://ddd3exnpqcy48" path="res://0test/red-button-isolate-backbround-3d-render-png.webp" id="4_84nfv"]
+[ext_resource type="Texture2D" uid="uid://ddd3exnpqcy48" path="res://0test/placeholder textures/red-button-isolate-backbround-3d-render-png.webp" id="4_84nfv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4iqb3"]
 
-[node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "BoardHolder", "LayoutHolder", "InformationLabel")]
+[node name="TTTT" type="Node2D" node_paths=PackedStringArray("Camera", "BoardHolder", "LayoutHolder", "InformationLabel", "AdminDebugLabel")]
 script = ExtResource("1_4wuof")
 Camera = NodePath("The Player Camera")
 BoardHolder = NodePath("LayoutHolder/BoardHolder")
 LayoutHolder = NodePath("LayoutHolder")
 InformationLabel = NodePath("INFORMATION")
+AdminDebugLabel = NodePath("BIG RED ADMIN BUTTON/Label2")
 
 [node name="LayoutHolder" type="Control" parent="." node_paths=PackedStringArray("BackgroundTexture", "BoardHolder")]
 layout_mode = 3
@@ -70,4 +71,41 @@ AAAAAAAAAAAAAA"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BIG RED ADMIN BUTTON" type="Button" parent="."]
+offset_left = -1029.0
+offset_top = 1241.0
+offset_right = -46.0
+offset_bottom = 1949.0
+scale = Vector2(0.5, 0.5)
+focus_mode = 0
+theme_override_font_sizes/font_size = 110
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4iqb3")
+icon = ExtResource("4_84nfv")
+
+[node name="Label" type="Label" parent="BIG RED ADMIN BUTTON"]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 106.0
+offset_right = 760.0
+offset_bottom = 314.0
+theme_override_font_sizes/font_size = 152
+text = "ADMIN"
+
+[node name="Label2" type="Label" parent="BIG RED ADMIN BUTTON"]
+layout_mode = 0
+offset_left = 984.0
+offset_right = 1474.0
+offset_bottom = 708.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "THE GLOBE 
+INFORMATIONEN"
+
+[node name="NetworkAdminNode" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="button_down" from="BIG RED BUTTON" to="." method="EndTurn"]
+[connection signal="button_down" from="BIG RED ADMIN BUTTON" to="." method="ChangeMyColorDebugAdmin"]

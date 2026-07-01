@@ -7,7 +7,7 @@ public static class Globe {
     public static bool IsThereAGamePresent = false ;
     public static bool ColorToMoveNext = true;
     public static bool YourColor = true; // Base color is true=white
-    public static bool CanYouMove = YourColor == ColorToMoveNext;
+    public static bool CanYouMove => YourColor == ColorToMoveNext;
     
     // It's juts twice the current tourtn to mod 2 it for who sohuld move XD
     public static double TwiceTurn = 1;
@@ -23,8 +23,9 @@ public abstract partial class AbstractBoard : Control {
 
 public static class Information {
     
-    public static Color AbleToMoveTileLightupColor = new(0, 255, 0);
-    public static Color PieceOnTopTileLightupColor = new(0, 0, 255);
+    public static Color RandomNicePurple = new(164, 0, 190, 100);
+    public static Color AbleToMoveTileLightupColor = new(0, 255, 0, 100);
+    public static Color PieceOnTopTileLightupColor = new(0, 0, 255, 100);
     
     public enum Boards {
         RrgularChess,
@@ -42,7 +43,7 @@ public static class Information {
     }
 
     public static Dictionary<Boards, string> BoardDictionary = new() {
-        [Boards.RrgularChess] = "res://0test/0test_chess/Board.tscn",
+        [Boards.RrgularChess] = "res://0test/0test_chess/ChessBoard.tscn",
         [Boards.DiceRoll] = ""
     };
 
@@ -79,8 +80,8 @@ public static class Information {
         },
         [Pieces.Pawn] = new() {
             Scene = "res://0test/0test_chess/Piece.tscn",
-            Texture_W = "board - chess/piece/textures/pawn_white.png",
-            Texture_B = "board - chess/piece/textures/pawn_black.png"
+            Texture_W = "res://0test/0test_chess/pieces/pawn_white.png",
+            Texture_B = "res://0test/0test_chess/pieces/pawn_black.png"
         }
     };
 }

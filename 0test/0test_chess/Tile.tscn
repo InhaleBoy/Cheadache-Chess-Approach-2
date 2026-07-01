@@ -18,6 +18,7 @@ scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_ivdmk")
 
 [node name="Tile Color" type="ColorRect" parent="."]
+visible = false
 light_mask = 513
 offset_left = -100.0
 offset_top = -100.0
@@ -31,7 +32,7 @@ offset_top = -92.0
 offset_right = 93.0
 offset_bottom = 93.0
 mouse_filter = 2
-color = Color(0.645075, 0.000894366, 0.744854, 1)
+color = Color(0.643137, 0, 0.745098, 0.392157)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -89.0
@@ -40,6 +41,6 @@ offset_right = 76.0
 offset_bottom = 70.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 49
-text = "[A,A,A]"
+text = "(0, 0, 0)"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

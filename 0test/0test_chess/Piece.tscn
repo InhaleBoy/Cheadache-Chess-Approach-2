@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ins72"]
 size = Vector2(150, 150)
 
-[node name="Piece" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape")]
+[node name="Piece" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "CollisionShape") groups=["PIECE"]]
 z_index = 100
 collision_mask = 0
 input_pickable = true

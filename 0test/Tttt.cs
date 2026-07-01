@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 using CHESS2._0test._0test_chess;
 using static CHESS2._0test.Information;
@@ -49,31 +50,51 @@ public partial class Tttt : Node2D
     }
     
     public void EndTurn() { // Change here so those are calls to nodes in gtoup maybe ?
-        string error_list = string.Empty;
 
-        foreach (var node in GetTree().GetNodesInGroup("BOARD")) {
-            if (node is not Board board) continue;
-            bool hasMove = board.HasMove();
-            if (hasMove) continue;
-            error_list += $"{board.BoardIdx}. {board.BoardName} ";
+        var boards = GetTree().GetNodesInGroup("BOARD");
+
+        try {
+            Board eBoard = (Board)boards.First(x => x is Board b && !b.HasMove());
+            GD.Print("You did not touch the boards : ", eBoard.BoardName);
+            return; 
+        } catch (Exception e) { // So BIZZARE that Exception is what i want
+            GD.Print("Empty sounds nice !" );
+        }
+
+
+        string mov = "Da Moves : \n";
+        foreach (var node in boards) {
+            if (node is not Board b) return;
+            mov += $"{b.CommitMoves()} \n";
         }
         
-        // Do Something with this so you cant do it
-        if (error_list != string.Empty) {
-            GD.Print("You did not touch the boards : ",error_list );
-            return;
-        }
-
-        // send END TURN PACKET ???
+        
+        // Finalize moves and save them here
+        GD.Print(mov);
+        // send END TURN PACKET for check with srv ??? Later ╥﹏╥
+        
 
         Globe.TwiceTurn++;
         Globe.ColorToMoveNext = !Globe.ColorToMoveNext;
         UpdateInformation();
         // Might add more animations
+        
+        // DELETE DEBUG
+        AdminDebugUpdate();
     }
     
     // ------------------------------ Methods
-    
+
+    [Export] public Label AdminDebugLabel { get; set; }
+    public void ChangeMyColorDebugAdmin(){
+        GD.Print("Network Administrator is one step behind GOD ~ chestnut horder TinfoilHatMgrTG " );
+        Globe.YourColor = !Globe.YourColor;
+        AdminDebugUpdate();
+    }
+    public void AdminDebugUpdate(){
+        AdminDebugLabel.Text = $"{Globe.IsThereAGamePresent}\n{Globe.ColorToMoveNext}\n{Globe.YourColor}\n" +
+                               $"{Globe.TwiceTurn}\n{Globe.CanYouMove}\n";
+    }
     
     public override void _Input(InputEvent @event) { // DEBUG INPUT
         if (Input.IsKeyPressed(Key.L)) {

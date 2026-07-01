@@ -60,14 +60,19 @@ public partial class Piece : CharacterBody2D {
     }
 
     public override void _Input(InputEvent @event) {
+        
+        // This is abysmal and it needs just a tiny bit of thinking
+        // But i font have the time ╥﹏╥
+        
         if (@event is InputEventMouseButton && _mouseontop && @event.IsPressed()) {
+            // Check if it's your time to SHINE | WHY HERE IT WORK HERE ?!?!
+            if (InGameColor != Globe.YourColor || !Globe.CanYouMove) return;
             CollisionShape.Shape = DragShape2D;
             _follow = true;
             // ColorTiles(AbleToMoveTileLightupColor);
             CurrentTile.SetLightup(PieceOnTopTileLightupColor);
         }
-        // member u changed and added here the else - if somehting breaks this is it <3
-        if(@event is InputEventMouseButton && @event.IsReleased()) {   
+        if(@event is InputEventMouseButton && @event.IsReleased() && _follow) {   
             if(FloatingTile is not null && FloatingTile.CurrentPiece is null
                 && MoveValidation.ValidationForPiece(InGameColor, Type, CurrentTile.Idx, FloatingTile.Idx) ) {
                 
@@ -80,9 +85,7 @@ public partial class Piece : CharacterBody2D {
                 
                 bool canMove = board.SetMove(GetInstanceId(), CurrentTile, FloatingTile);
                 if (canMove) {
-                    CurrentTile.CurrentPiece = null;
-                    FloatingTile.CurrentPiece = this;
-                    CurrentTile = FloatingTile;
+                    Move(CurrentTile,FloatingTile);
                 } 
                 
             }
@@ -109,6 +112,17 @@ public partial class Piece : CharacterBody2D {
     
     // ------------------------------- Methods
 
+    public void Move(Tile from, Tile to){
+        from.CurrentPiece = null;
+        to.CurrentPiece = this;
+        CurrentTile = to;
+    }
+    
+    public void UpdatePosition() {
+        SetGlobalPosition(CurrentTile.GlobalPosition);
+    }
+    
+    
     private void ColorTiles(Color color){ // replace with call group
         var tiles = GetTree().GetNodesInGroup("TILE");
         foreach (var apparentTile in tiles) {

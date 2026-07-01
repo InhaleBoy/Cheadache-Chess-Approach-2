@@ -6,12 +6,12 @@ namespace CHESS2._0test._0test_Start;
 public partial class TesterMainMenu : Control {
 
     [Export] public PackedScene GameScene { get; set; }
-
-    public bool WoB;
     [Export] public Label ColorLabel { get; set; }
     [Export] public Button PickWhiteButton { get; set; }
     [Export] public Button PickBlackButton { get; set; }
 
+    public bool WoB;
+    
     public override void _Ready() {
         ChangeColorWhite();
         UpdateColorLabel();
@@ -38,27 +38,23 @@ public partial class TesterMainMenu : Control {
     
     public void StartGame() {
         
-        // I need to keep ingformtion in Globe for now I guess
-        // BETTER ! Im nt gonna give any info at all as of now XD
+        Globe.YourColor = WoB;
+        Globe.IsThereAGamePresent = true;
         
-        // Hardcoded Boards
+        // ACHTUNG! Hardcoded Boards
         Boards[] boards = [
             Boards.RrgularChess,
             Boards.RrgularChess,
         ];
         
         Tttt gamesc = GameScene.Instantiate<Tttt>();
-        // There will be more Net Stuff to combine theese
-        // For now it is single player tho
+        
+        // There will be more Networking Stuff here
+        // For now it is single player tbh
+        
         gamesc.Init(boards);
         GetTree().Root.AddChild(gamesc);
-        
-        
-        Globe.IsThereAGamePresent = true;
-        Globe.YourColor = true; // i make it true for safety 
-        // Globe.YourColor = WoB;
-        
-        
         QueueFree();
+        
     }
 }

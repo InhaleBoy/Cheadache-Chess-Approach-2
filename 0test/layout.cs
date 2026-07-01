@@ -14,6 +14,8 @@ public partial class layout : Control
     public void RefreshLayout() {
         BackgroundTexture.Size = BoardHolder.Size + new Vector2(0,MagicNumberBorder);
         BoardHolder.Position = new Vector2(MagicNumberBorder / 2, MagicNumberBorder / 2);
+        
+        GetTree().CallGroup("PIECE","UpdatePosition");
     }
 
     public override void _Input(InputEvent @event) {
